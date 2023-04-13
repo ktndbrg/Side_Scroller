@@ -36,6 +36,7 @@ class Animation_System ():
         # The entire width |---------|, divided by the size of a single sprite, since you go left and right divide by 2.
         self.number_of_sprites = self.image.get_width () / (2 * self.px_size) # How many animation sprites?
         self.anim_step = True # True means go upwards, false means go downwards.
+        # TODO: Timer is wrong!
         self.ANI_SPRITE_LEN = 0.100 # Number of seconds each animation sprite lasts, Constant!
         self.anim_timer = self.ANI_SPRITE_LEN # Same as above, but tracks time left
         self.animation_frame = 1

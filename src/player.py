@@ -57,13 +57,13 @@ class Player ():
             # Player can walk twice his length each second
             # TODO: Add powerup that makes movement faster
             # Remove the *5, it is not intended
-            self.vel -= Vector ([24.0 * 2.0, 0.0])
+            self.vel -= Vector ([24.0 * 2.0 , 0.0])
             self.direction = "LEFT"
             self.movement = True
         if inputs["RIGHT"] == True and inputs["LEFT"] == False:
             # Player can walk twice his length each second
             # TODO: Add powerup that makes movement faster
-            self.vel += Vector ([24.0 * 2.0, 0.0])
+            self.vel += Vector ([24.0 * 2.0 , 0.0])
             self.direction = "RIGHT"
             self.movement = True
         

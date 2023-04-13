@@ -68,7 +68,7 @@ class Game ():
         
 
         self.test_sprite = pygame.image.load('first_map.png')
-        self.player = Player (sprite='data/sprite_sheets/flybea.png', idle_anim = True, pos=[0, 162]) # sprite='data/sprite_sheets/player.png'
+        self.player = Player (sprite="data/sprite_sheets/player.png", idle_anim = False, pos=[0, 162])#Player (sprite='data/sprite_sheets/flybea.png', idle_anim = True, pos=[0, 162]) # sprite='data/sprite_sheets/player.png'
         
         self.camera = Camera (screen_resolution, self.test_sprite.get_width())
         
