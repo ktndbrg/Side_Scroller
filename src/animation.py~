@@ -1,0 +1,46 @@
+"""
+    'Early Beginnings' is a 2D platformer written in Python
+using the 'pygame' library.
+All of the game art is under a different license, see directory 'data'.
+    Copyright (C) <2023>  <Kristoffer R. Tandberg, "ktndbrg">
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+"""
+Class Animation_System
+General features for the animation
+"""
+class Animation_System ():
+    """
+    sprite_name = "data/sprite_sheets/pink.png"
+    """
+    def __init__ (self, sprite_name = "data/sprite_sheets/pink.png"):
+        self.image = pygame.image.load(sprite_name).convert_alpha()
+        self.direction = "RIGHT" # "LEFT"
+        self.px_size = self.sprite_image.get_height () # ONLY HAVE THE SPRITE SHEET HORIZONTAL!
+        # How many sprites?
+        # The entire width |---------|, divided by the size of a single sprite, since you go left and right divide by 2.
+        self.number_of_sprites = self.sprite_image.get_width () / (2 * self.sprite_px_size) # How many animation sprites?
+        self.anim_step = True # True means go upwards, false means go downwards.
+        self.anim_timer = 0
+
+    def __call__ (self, tick):
+        # Standing still
+        if self.direction == "RIGHT":
+            self.sprite_rect = (0, 0)
+        else:
+            self.sprite_rect = (2 * self.sprite_px_size, 0)
+
+

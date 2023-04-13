@@ -1,0 +1,127 @@
+from Vector import Vector
+from Birds import Herd
+import pygame    
+
+class Game ():
+    # Generic game related inputs
+    keyboard = {"A": False,
+                "B": False,
+                "LEFT": False,
+                "RIGHT": False,
+                "UP": False,
+                "DOWN": False}
+    
+    """
+        Initialize a game session (Birds simulation)
+        fps: Frames per second (used for delta_time, physics stuff).
+        screen_size: (Tuple), the screen resolution.
+        flock_size: the number of birds to use.
+    """
+    def __init__ (self, fps = 60, screen_size = (640, 480), flock_size=10):
+        pygame.init ()
+        self.screen_size = screen_size
+        self.screen = pygame.display.set_mode (self.screen_size)
+        self.fps = fps
+        self.delta_time = 1000.0 / self.fps
+        self.origin = [int(screen_size[0] / 2.0), int (screen_size[1] / 2.0)]
+        self.camera = [0, 0]
+        self.grid_sprite = pygame.image.load('test.png')
+        self.player = Player ()
+
+    """
+        The actual gameloop
+    """
+    def run (self):
+        self.run_flag = True
+
+        # Da game loop
+        while self.run_flag:
+            self.events ()  # Input
+            self.update ()  # Logic
+            self.render ()  # Display
+            
+            # delta_time should be how many seconds in a frame [1 / 60 == 0.016]
+            
+            # We can rather use v-sync
+            pygame.time.delay (100)
+        pygame.quit ()
+        quit ()
+    
+    """
+        Input method.
+        For simulations; just use events.
+    """
+    def events (self):
+        for event in pygame.event.get ():
+            if event.type == pygame.QUIT:
+                self.run_flag = False
+            elif event.type == pygame.KEYDOWN:
+                # 113 == 'Q' for quit
+                if event.key == 113:
+                    self.run_flag = False
+
+                elif event.key == 1073741904:
+                    self.keyboard["LEFT"] = True
+
+                elif event.key == 1073741903:
+                    self.keyboard["RIGHT"] = True
+
+                elif event.key == 1073741906:
+                    self.keyboard["UP"] = True
+
+                elif event.key == 1073741905:
+                    self.keyboard["DOWN"] = True
+
+                # Testing what keycode the button is
+                #print ("We pressed %s" % (event.key))
+            elif event.type == pygame.KEYUP:
+                if event.key == 1073741904:
+                    self.keyboard["LEFT"] = False
+
+                elif event.key == 1073741903:
+                    self.keyboard["RIGHT"] = False
+
+                elif event.key == 1073741906:
+                    self.keyboard["UP"] = False
+
+                elif event.key == 1073741905:
+                    self.keyboard["DOWN"] = False
+
+
+    """
+        Game Logic, physics stuff
+    """
+    def update (self):
+        if self.keyboard["RIGHT"] == True:
+            self.player.position.row[0] += 2.5
+        elif self.keyboard["LEFT"] == True:
+            self.player.position.row[0] -= 2.5
+    
+    """
+        Render method.
+        Blit all sprites to screen and flip it
+    """
+    def render (self):
+        # Background color.
+        # Paint it over everything so we start out clean
+        color = (25, 25, 25)
+        self.screen.fill (color)
+        
+        # Grid for checking camera movement
+        self.screen.blit (self.grid_sprite, (0, 0))
+        self.screen.blit (self.player.sprite, (self.player.position.row[0], self.player.position.row[1]))
+
+        # Render all the birds, one by one. Centers the camera
+        #for i in range (self.herd.size):
+        #    if i % 100 == 0:
+        #        self.screen.blit (self.herd.sprite, (self.herd.flock[i].position.row[0] - self.camera[0], self.herd.flock[i].position.row[1] - self.camera[1]))
+        
+        
+        
+        # Flip the table
+        pygame.display.flip ()
+
+if __name__ == "__main__":
+    game = Game (fps=60, screen_size=(640, 480), flock_size=1000)
+    game.run ()
+
